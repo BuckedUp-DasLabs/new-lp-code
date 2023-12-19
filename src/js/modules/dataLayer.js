@@ -33,7 +33,9 @@ const dataLayerStart = (data) => {
   const titles = data.map((items) => items.name);
   const item = { event: "pageview", action: "load", value: 0 };
   setDataLayer(item);
-  setKlaviyo("Page View", item, titles);
+  setTimeout(() => {
+    setKlaviyo("Page View", item, titles);
+  }, 200);
 };
 
 const dataLayerNoThanks = (data) => {
