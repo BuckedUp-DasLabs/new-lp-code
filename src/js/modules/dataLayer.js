@@ -42,7 +42,7 @@ const dataLayerNoThanks = (data) => {
   const titles = data.map((items) => items.name);
   const item = { event: "interaction", action: "click", value: 0 };
   setDataLayer(item);
-  setKlaviyo("Page View", item, titles);
+  setKlaviyo("User Refused", item, titles);
 };
 
 const dataLayerRedirect = (data) => {
@@ -57,7 +57,7 @@ const dataLayerBuy = (data, price) => {
   const currentCurrency = data[0].price.match(/([A-Za-z]+)? ?\$(\d+\.\d+)/)[1] || "USD";
   const item = { event: "interaction", action: "purchase", value: price.toFixed(2), currency: currentCurrency };
   setDataLayer(item);
-  setKlaviyo("User Redirect Engagement", item, titles);
+  setKlaviyo("User Bought", item, titles);
 };
 
 export { dataLayerStart, dataLayerRedirect, dataLayerBuy, dataLayerNoThanks };
