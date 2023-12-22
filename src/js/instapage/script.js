@@ -1,8 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
-const utm_source = "";
 const step_count = "";
 const page_id = "";
 const version_id = "";
+const urlParamsCookies = ["click_id","utm_source","utm_medium","utm_campaign","utm_term","utm_content"]
 
 const isFirstPage = true;
 const isFinalPage = false;
@@ -25,6 +25,10 @@ const noThanksRedirect = `https://.com?${urlParams}`;
 
 //stop here.
 const origin = window.location.pathname.replace("/", "").replace("/", "");
-document.cookie = `offer_id=${origin}; path=/; domain=.buckedup.com;max-age=3600`;
-document.cookie = `page_id=${page_id}; path=/; domain=.buckedup.com;max-age=3600`;
+const cookieConfig = "path=/; domain=.buckedup.com;max-age=3600"
+document.cookie = `offer_id=${origin};${cookieConfig}`;
+document.cookie = `page_id=${page_id};${cookieConfig}`;
+urlParamsCookies.forEach(param=>{
+  document.cookie = `${param}=${urlParams.get(param)};${cookieConfig}`;
+})
 if (isFirstPage) localStorage.setItem("first_page", origin);
