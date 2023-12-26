@@ -4,6 +4,10 @@ const handleLoad = async ({ids, country, hiddenIds}) => {
   const data = { data: [], noStock: false, error: false, hidden: [] };
   const handleStock = () => {
     [...data.data, ...data.hidden].forEach((product) => {
+      if (product.options.length === 0) {
+        if (product.stock["[]"] <= 0) data.noStock = true;
+        return;
+      }
       const isNormalProduct = Object.hasOwn(product.options[0].values[0], "in_stock");
       if (!isNormalProduct) {
         if (Object.values(product.stock).every((val) => val <= 0)) {
