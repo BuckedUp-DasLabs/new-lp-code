@@ -7,7 +7,6 @@ const urlParamsCookies = ["click_id","utm_source","utm_medium","utm_campaign","u
 const isFirstPage = true;
 const isFinalPage = false;
 
-const orderId = null;
 const country = null;
 const buyRedirect = ``;
 
@@ -16,8 +15,8 @@ for (let key in params) {
   urlParams.set(key, params[key]);
 }
 
-const productsID = [999]; //ID of each the product
-const hiddenProducts = [];
+const productsID = []; //ID of each the product
+const hiddenProducts = [1184];
 const buyButtonsIds = [{ id: "#element-35", quantity: 2 }]; //IDs of each button of each product(in the order put in productID).
 const noThanksButtonsIds = ["#element-36"];
 const redirectUrl = `https://.com?${urlParams}`;

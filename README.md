@@ -64,6 +64,7 @@ const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2}]
 
 ```
 <script>
+  const urlParams = new URLSearchParams(window.location.search);
   const step_count = "";
   const page_id = "";
   const version_id = "";
@@ -72,7 +73,6 @@ const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2}]
   const isFirstPage = true;
   const isFinalPage = false;
 
-  const orderId = null;
   const country = null;
   const buyRedirect = ``;
 

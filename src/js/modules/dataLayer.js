@@ -12,7 +12,7 @@ const setDataLayer = ({ event, action, value, currency }) => {
     action: action,
     value: value,
     currency: currency,
-    transaction_id: orderId,
+    transaction_id: urlParams.get("order_uuid"),
   });
 };
 

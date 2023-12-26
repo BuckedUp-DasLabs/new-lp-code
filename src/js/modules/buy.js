@@ -10,9 +10,13 @@ const getVariantId = (productId, optionId) => {
   variantId = input.value;
   return { result: variantId };
 };
+
+const hasOptions = (prod) => {
+  return prod.options.length > 0;
+};
 //updates order
 const buy = async (btn, data, hiddenProd) => {
-  const body = { order_uuid: orderId, items: {} };
+  const body = { order_uuid: urlParams.get("order_uuid"), items: {} };
   let notSelected = false;
   let totalPrice = 0;
   const quantity = btn.getAttribute("quantity") || 1;
@@ -38,11 +42,13 @@ const buy = async (btn, data, hiddenProd) => {
   body.items = Object.values(body.items);
   body.items.push(
     ...hiddenProd.map((prod) => {
-      totalPrice = totalPrice + getPrice(prod.price) + getPrice(prod.options[0].values[0].price);
-      const optionId = prod.options[0].id;
-      const valueId = prod.options[0].values[0].id;
+      totalPrice = totalPrice + getPrice(prod.price) + (hasOptions(prod) ? getPrice(prod.options[0].values[0].price) : 0);
       const options = {};
-      options[optionId] = valueId;
+      if(hasOptions(prod)){
+        const optionId = prod.options[0].id;
+        const valueId = prod.options[0].values[0].id;
+        options[optionId] = valueId;
+      }
       return {
         options,
         product_id: prod.id,
