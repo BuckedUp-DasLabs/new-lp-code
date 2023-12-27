@@ -79,7 +79,7 @@ const buy = async (btn, data, hiddenProd) => {
     });
   });
   dataLayerRedirect(data);
-  window.location.href = `https://${country ? country + "." : ""}buckedup.com/cart/add?${string}&clear=true`;
+  window.location.href = `https://${country ? country + "." : ""}buckedup.com/cart/add?${string}&clear=true&${urlParams}`;
 };
 
 export default buy;
