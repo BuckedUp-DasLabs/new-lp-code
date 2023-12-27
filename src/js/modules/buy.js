@@ -39,6 +39,7 @@ const buy = async (btn, data, hiddenProd) => {
     alert("Select your choices");
     return;
   }
+  toggleLoading();
   body.items = Object.values(body.items);
   body.items.push(
     ...hiddenProd.map((prod) => {
@@ -58,7 +59,6 @@ const buy = async (btn, data, hiddenProd) => {
   );
   if (!isFirstPage) {
     if (country) body.country = country;
-    toggleLoading();
     const response = await postApi(postUrl, body);
     console.log(response);
     if (!response) window.location.href = buyRedirect;
@@ -79,7 +79,7 @@ const buy = async (btn, data, hiddenProd) => {
     });
   });
   dataLayerRedirect(data);
-  window.location.href = `https://${country ? country + "." : ""}buckedup.com/cart/add?${string}&clear=true`;
+  window.location.href = `https://${country ? country + "." : ""}buckedup.com/cart/add?${string}&clear=true&${urlParams}`;
 };
 
 export default buy;
