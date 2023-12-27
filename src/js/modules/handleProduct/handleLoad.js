@@ -5,12 +5,16 @@ const handleLoad = async ({ids, country, hiddenIds}) => {
   const handleStock = () => {
     [...data.data, ...data.hidden].forEach((product) => {
       if (product.options.length === 0) {
-        if (product.stock["[]"] <= 0) data.noStock = true;
+        if (product.stock["[]"] <= 0){
+          console.log("Out of stock: ",product.id)
+          data.noStock = true;
+        } 
         return;
       }
       const isNormalProduct = Object.hasOwn(product.options[0].values[0], "in_stock");
       if (!isNormalProduct) {
         if (Object.values(product.stock).every((val) => val <= 0)) {
+          console.log("Out of stock: ",product.id)
           data.noStock = true;
           return;
         }
@@ -34,7 +38,10 @@ const handleLoad = async ({ids, country, hiddenIds}) => {
         if (!option.values.length == 0) {
           //if already 0, then no point in checking.
           option.values = option.values.filter((value) => value.in_stock);
-          if (option.values.length <= 0) data.noStock = true;
+          if (option.values.length <= 0){
+            console.log("Out of stock: ",product.id)
+            data.noStock = true;
+          } 
         }
       }
     });
