@@ -55,11 +55,12 @@
 
 ### 3. Place this code and change as necessary into html/css footer
 
-you can add how much you want from the product depending on the button, and the products you want depending on the button.
+you can add how much you want from the product depending on the button and the products you want from the specific button.
+(the quantity in the "products" takes priority)
 Ex:
 
 ```
-const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2, products:[991,992]}]
+const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2, products:'{"991": {"quantity": 1},"992": {"quantity": 2}}'}]
 ```
 
 ```
