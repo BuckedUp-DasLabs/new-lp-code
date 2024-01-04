@@ -17,7 +17,7 @@ for (let key in params) {
 
 const productsID = [935]; //ID of each the product
 const hiddenProducts = [1184];
-const buyButtonsIds = ["#element-35",{ id: "#element-37", products:[1184] }]; //IDs of each button of each product(in the order put in productID).
+const buyButtonsIds = ["#element-35",{ id: "#element-37", products:'{"935": {"quantity": 3},"1184": {"quantity": 2}}' },{ id: "#element-38", quantity: 4 }]; //IDs of each button of each product(in the order put in productID).
 const noThanksButtonsIds = ["#element-36"];
 const redirectUrl = `https://.com?${urlParams}`;
 const noThanksRedirect = `https://.com?${urlParams}`;

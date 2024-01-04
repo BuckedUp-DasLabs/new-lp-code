@@ -21,17 +21,23 @@ const buy = async (btn, data, hiddenProd) => {
   let totalPrice = 0;
   const quantity = btn.getAttribute("quantity") || 1;
 
-  let btnProducts = btn.getAttribute("products");
-  if(btnProducts){
-    btnProducts = btnProducts.split(",")
-    data = data.filter(product=>btnProducts.includes(product.id))
-    hiddenProd = hiddenProd.filter(product=>btnProducts.includes(product.id))
+  const btnProducts = JSON.parse(btn.getAttribute("products"));
+  const filterProd = (product) => {
+    if (Object.keys(btnProducts).includes(product.id)) {
+      product.quantity = btnProducts[product.id].quantity;
+      return true;
+    }
+    return false;
+  };
+  if (btnProducts) {
+    data = data.filter((product) => filterProd(product));
+    hiddenProd = hiddenProd.filter((product) => filterProd(product));
   }
 
-  const getPrice = (price) => +price.split("$")[1] * quantity;
+  const getPrice = (price, productQuantity = undefined) => +price.split("$")[1] * (productQuantity || quantity);
   for (let product of data) {
-    totalPrice = totalPrice + getPrice(product.price);
-    body.items[product.id] = { product_id: product.id, quantity: quantity, options: {} };
+    totalPrice = totalPrice + getPrice(product.price, product.quantity);
+    body.items[product.id] = { product_id: product.id, quantity: product.quantity || quantity, options: {} };
     for (let option of product.options) {
       const currentVariant = getVariantId(product.id, option.id);
       if (!currentVariant.result) {
@@ -40,7 +46,7 @@ const buy = async (btn, data, hiddenProd) => {
         continue;
       }
       body.items[product.id].options[option.id] = currentVariant.result;
-      totalPrice = totalPrice + getPrice(option.values.find((obj) => obj.id == currentVariant.result).price);
+      totalPrice = totalPrice + getPrice(option.values.find((obj) => obj.id == currentVariant.result).price, product.quantity);
     }
   }
   if (notSelected) {
@@ -51,9 +57,9 @@ const buy = async (btn, data, hiddenProd) => {
   body.items = Object.values(body.items);
   body.items.push(
     ...hiddenProd.map((prod) => {
-      totalPrice = totalPrice + getPrice(prod.price) + (hasOptions(prod) ? getPrice(prod.options[0].values[0].price) : 0);
+      totalPrice = totalPrice + getPrice(prod.price, prod.quantity) + (hasOptions(prod) ? getPrice(prod.options[0].values[0].price, prod.quantity) : 0);
       const options = {};
-      if(hasOptions(prod)){
+      if (hasOptions(prod)) {
         const optionId = prod.options[0].id;
         const valueId = prod.options[0].values[0].id;
         options[optionId] = valueId;
@@ -61,7 +67,7 @@ const buy = async (btn, data, hiddenProd) => {
       return {
         options,
         product_id: prod.id,
-        quantity,
+        quantity: prod.quantity || quantity,
       };
     })
   );
