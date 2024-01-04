@@ -20,6 +20,14 @@ const buy = async (btn, data, hiddenProd) => {
   let notSelected = false;
   let totalPrice = 0;
   const quantity = btn.getAttribute("quantity") || 1;
+
+  let btnProducts = btn.getAttribute("products");
+  if(btnProducts){
+    btnProducts = btnProducts.split(",")
+    data = data.filter(product=>btnProducts.includes(product.id))
+    hiddenProd = hiddenProd.filter(product=>btnProducts.includes(product.id))
+  }
+
   const getPrice = (price) => +price.split("$")[1] * quantity;
   for (let product of data) {
     totalPrice = totalPrice + getPrice(product.price);

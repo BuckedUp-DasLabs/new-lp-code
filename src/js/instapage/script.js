@@ -15,9 +15,9 @@ for (let key in params) {
   urlParams.set(key, params[key]);
 }
 
-const productsID = []; //ID of each the product
+const productsID = [935]; //ID of each the product
 const hiddenProducts = [1184];
-const buyButtonsIds = [{ id: "#element-35", quantity: 2 }]; //IDs of each button of each product(in the order put in productID).
+const buyButtonsIds = ["#element-35",{ id: "#element-37", products:[1184] }]; //IDs of each button of each product(in the order put in productID).
 const noThanksButtonsIds = ["#element-36"];
 const redirectUrl = `https://.com?${urlParams}`;
 const noThanksRedirect = `https://.com?${urlParams}`;

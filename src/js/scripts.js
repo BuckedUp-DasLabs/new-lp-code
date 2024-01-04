@@ -11,7 +11,8 @@ const setQuantity = (id) => {
   const isString = typeof id === "string";
   const button = document.querySelector(isString ? id : id.id);
   if (!isString) {
-    button.setAttribute("quantity", id.quantity);
+    id.quantity && button.setAttribute("quantity", id.quantity);
+    id.products && button.setAttribute("products", id.products);
   }
   return button;
 };
