@@ -70,6 +70,7 @@ const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2, products:'{"
   const page_id = "";
   const version_id = "";
   const urlParamsCookies = ["click_id","utm_source","utm_medium","utm_campaign","utm_term","utm_content"]
+  const discountCode = "";
 
   const isFirstPage = true;
   const isFinalPage = false;
@@ -77,7 +78,7 @@ const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2, products:'{"
   const country = null;
   const buyRedirect = ``;
 
-  const params = {};
+  const params = {cc: discountCode};
   for (let key in params) {
     urlParams.set(key, params[key]);
   }
@@ -92,7 +93,7 @@ const buyButtonsIds = ["#element-1",{id: "#element-2", quantity: 2, products:'{"
   //stop here.
   const origin = window.location.pathname.replace("/", "").replace("/", "");
   const cookieConfig = "path=/; domain=.buckedup.com;max-age=3600"
-  document.cookie = `offer_id=${origin};${cookieConfig}`;
+  document.cookie = `offer_id=${discountCode};${cookieConfig}`;
   document.cookie = `page_id=${page_id};${cookieConfig}`;
   urlParamsCookies.forEach(param=>{
     document.cookie = `${param}=${urlParams.get(param)};${cookieConfig}`;
